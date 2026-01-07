@@ -41,10 +41,16 @@ class Appointment(Base):
 # --- FastAPI App ---
 app = FastAPI()
 
-# Enable CORS for React Frontend (Week 3)
+# Enable CORS for React Frontend
+origins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    os.getenv("FRONTEND_URL", "*") # Allow Render backend to trust your Vercel frontend
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In production, replace with specific origin
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
